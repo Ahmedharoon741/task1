@@ -8,19 +8,17 @@ from sklearn.model_selection import train_test_split
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 
-# Load dataset (assuming a CSV file)
-# For demonstration purposes, replace 'your_dataset.csv' with your actual dataset file path
+
 data = pd.read_csv('your_dataset.csv')
 
-# Preview the data
+
 print(data.head())
 
-# Handle missing values
-# We'll use SimpleImputer to replace missing values with the mean for numerical features
+
 numerical_features = data.select_dtypes(include=['int64', 'float64']).columns
 categorical_features = data.select_dtypes(include=['object']).columns
 
-# Preprocessing for numerical data
+
 numerical_pipeline = Pipeline(steps=[
     ('impute', SimpleImputer(strategy='mean'))   # Impute missing values with mean
 ])
@@ -31,7 +29,7 @@ categorical_pipeline = Pipeline(steps=[
     ('onehot', OneHotEncoder(handle_unknown='ignore'))    # One-hot encode categorical features
 ])
 
-# Combine pipelines
+
 preprocessor = ColumnTransformer(
     transformers=[
         ('num', numerical_pipeline, numerical_features),
